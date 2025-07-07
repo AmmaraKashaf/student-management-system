@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
 
-# 1. Database Setup
+
 conn = sqlite3.connect("students.db")
 cursor = conn.cursor()
 cursor.execute("""
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS students (
 )
 """)
 conn.commit()
-# Create Grades Table (NEW PART)
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS grades (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,7 +30,7 @@ def add_grade(student_id, subject, score):
         cursor.execute("INSERT INTO grades (student_id, subject, score) VALUES (?, ?, ?)", (student_id, subject, score))
         conn.commit()
 
-        # Log the change
+ 
         with open("grades.log", "a") as log_file:
             log_file.write(f"Student ID {student_id} - {subject}: {score}\n")
 
@@ -38,7 +38,7 @@ def add_grade(student_id, subject, score):
     except Exception as e:
         print("Error adding grade:", e)
 
-# 2. GUI Functions
+
 def add_student():
     name = name_entry.get()
     email = email_entry.get()
@@ -58,14 +58,14 @@ def view_students():
     cursor.execute("SELECT * FROM students")
     students = cursor.fetchall()
     for student in students:
-        print(student)  # Terminal mein dikhega
+        print(student)  
 
-# 3. Main Window
+
 root = tk.Tk()
 root.title("Student Management System")
 root.geometry("400x300")
 
-# Labels & Entries
+
 tk.Label(root, text="Name:").place(x=20, y=20)
 name_entry = tk.Entry(root, width=30)
 name_entry.place(x=100, y=20)
@@ -74,7 +74,7 @@ tk.Label(root, text="Email:").place(x=20, y=50)
 email_entry = tk.Entry(root, width=30)
 email_entry.place(x=100, y=50)
 
-# Buttons
+
 tk.Button(root, text="Add Student", command=add_student).place(x=100, y=90)
 tk.Button(root, text="View Students", command=view_students).place(x=200, y=90)
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     root.title("Student Management System")
     root.geometry("400x300")
 
-    # Labels & Entries
+   
     tk.Label(root, text="Name:").place(x=20, y=20)
     name_entry = tk.Entry(root, width=30)
     name_entry.place(x=100, y=20)
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     email_entry = tk.Entry(root, width=30)
     email_entry.place(x=100, y=50)
 
-    # Buttons
+   
     tk.Button(root, text="Add Student", command=add_student).place(x=100, y=90)
     tk.Button(root, text="View Students", command=view_students).place(x=200, y=90)
 
